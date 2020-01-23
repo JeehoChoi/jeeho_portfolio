@@ -13,7 +13,7 @@ $(document).ready(function() {
             
             count++;
             if (count > 15) clearInterval(loading);
-            $('#preload').delay(200).fadeOut('fast'); //2000
+            $('#preload').delay(2000).fadeOut('fast'); //2000
         }, 100);
     })
     var logo = $("#header .logo");
