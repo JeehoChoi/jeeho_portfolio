@@ -38,7 +38,7 @@
 }
 
 body, h1, h2, h3, h4, h5, h6, p, ul, button{margin: 0;padding: 0;}
-html, body{height: 100%;}
+html, body{height: 100vh;}
 h1, h2, h3, h4, h5, h6{font-size: inherit;font-weight: 400;}
 ul{list-style: none;}
 a:link, a:visited, a:hover, a:active{text-decoration: none;color: inherit;}
@@ -81,78 +81,58 @@ body.loaded{
     > a{right: 0;font-size: 24px;}
 }
 
-/* contents */
-#aboutBtnCover{
-    position: absolute;top: 0;width: 375px;height: 100%;left: 90px;right: auto;background: #fff;
-    &:before{content: "";position: absolute;width: 10px;height: 355px;left: 0;bottom: 100px;background: $mint;}
-}
-#aboutBtn{
-    @include transition(all .3);
-    position: absolute;height: 360px;width: 240px;bottom: 95px;left: 50px;outline: none;z-index: 900;
-    
-    .about_txt{
-        
-        svg{
-            width: 100%;
-            .st0{fill:$lightmint;}
-            .st1{fill: $mint;}
-            &#hu{margin-top: 50px;margin-bottom: 20px;}
-        }
-    }
-    &:hover{
-        .about_txt svg .st1{fill:$lightmint;}
-    }
-    &.active{
-        left: auto;right: 0;
+/* content */
+#content{position: relative;overflow: hidden;height: 100vh;width: 100vw;}
+#aboutCover{
+    position: absolute;height: 100vh;width: 100vw;right: calc(100% - 370px);left: auto;z-index: 300;background: #ffffff;
+    #aboutBtn, #about{float: right;}
+    &:before{content: "";position: absolute;width: 10px;height: 355px;right: 320px;bottom: 100px;background: $mint;}
+    #aboutBtn{
+        @include transition(all .3);position: absolute;right: 60px;bottom: 95px;
+        height: 360px;width: 240px;z-index: 900;/* outline: none; */
         .about_txt{
-            #hu{}
-            #arrow{@include transform(scaleX(-1))};
+            svg{
+                width: 100%;
+                .st0{fill:$lightmint;}
+                .st1{fill: $mint;}
+                &#hu{margin-top: 50px;margin-bottom: 20px;}
+            }
+        }
+        &:hover{
+            .about_txt svg .st1{fill:$lightmint;}
+        }
+        &.active{
+            left: auto;right: 0;
+            .about_txt{
+                #hu{}
+                #arrow{@include transform(scaleX(-1))};
+            }
         }
     }
-}
-@include keyframes (twinkle) {
-    from {fill: $mint;}
-    to {fill: $lightmint;}
-};
 
-#about{
-    position: fixed;width: 100%;height: 100%;background: $mint;visibility: hidden;
+    @include keyframes (blink) {
+        from {fill: $mint;}
+        to {fill: $lightmint;}
+    }
+    
+    #about{
+        width: calc(100% - 370px);height: 100%;background: $mint;z-index: 800;visibility: hidden;margin-right: 370px;
+    }
 }
 
 #ability {
+    position: relative;z-index: 50;
     .skill {
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        >* {
-            flex-grow: 1;
-        }
+        position: relative;right: -5%;bottom: -10%;width: 100%;height: 100vh;display: flex;align-items: center;justify-content: space-between;
+        >* {flex-grow: 1;}
     }
 
     .circle--rotate {
-        border-radius: 50%;
-        border: 1px #000000 solid;
-        width: 43%;
-        height: 43%;
-        margin: 0 auto 0;
-        position: relative;
-        transform: rotate(0deg);
-        z-index: 0;
-        padding: 0;
+        &, >li{@include radius(50%);}
+        position: relative;border: 1px #000000 solid;width: 50%;height: 50%;margin: 0 auto 0;transform: rotate(0deg);z-index: 0;padding: 0;
 
         >li {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
-            border-radius: 50%;
-            z-index: 10;
-            visibility: hidden;
+            position: absolute;left: 0;top: 0;width: 100%;height: 100%;z-index: 10;visibility: hidden;
 
             .icon {
                 visibility: visible;
@@ -194,7 +174,7 @@ body.loaded{
     }
 
     .circle--slider {
-        position: relative;
+        position: absolute;width: 100%;right: -20%;bottom: -10%;
 
         .rotate--circle {
             margin: 0 auto;
@@ -206,62 +186,12 @@ body.loaded{
                 position: relative;
                 overflow: visible;
                 background-color: #1F2845;
-
-                span {
-                    transform: rotate(0deg);
-                    transition: all 2s;
-                    opacity: 0;
-                }
             }
 
             &.active div {
                 font-size: 20px;
                 background-color: #654BE4;
                 transition: all 1s;
-
-                span {
-                    width: 100%;
-                    height: 100%;
-                    display: block;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    transform: rotate(-45deg);
-                    z-index: -1;
-                    opacity: 1;
-
-                    &:before {
-                        position: absolute;
-                        height: 1px;
-                        top: -50%;
-                        right: 140%;
-                        bottom: 0;
-                        margin: auto;
-                        content: "";
-                        width: 30%;
-                        height: 30%;
-                        filter: blur(3px);
-                        opacity: .7;
-                        border: 6px solid #F48E2A;
-                        z-index: -1;
-                    }
-
-                    &:after {
-                        position: absolute;
-                        height: 1px;
-                        top: 100%;
-                        left: 130%;
-                        bottom: 0;
-                        margin: auto;
-                        content: "";
-                        width: 40%;
-                        height: 40%;
-                        border-radius: 50%;
-                        opacity: .7;
-                        border: 8px solid #FE9290;
-                        z-index: 5;
-                    }
-                }
             }
         }
 
@@ -565,12 +495,14 @@ body.loaded{
     }
 }
 
-#portfolio {
+#portfolio {display: none;
+    position: absolute;left: 0;right: 0;top: 0;bottom: 0;
     .scroll-slider {
         position: relative;
         overflow: hidden;
         height: 100vh;
         opacity: 0.5;
+        z-index: 900;
 
         &:hover {
             opacity: 1;
