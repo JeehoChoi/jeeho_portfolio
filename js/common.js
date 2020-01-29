@@ -27,7 +27,7 @@ $(document).ready(function() {
     $aboutBtn.on('click', function () {
         if ($(this).hasClass('active')) {
             $about.css({visibility: 'hidden'});
-            $aboutCnt.stop().animate({left: 'auto', right: '100% - 375px'}).children($aboutBtn).removeClass('active').find('sr-only').text('자기소개');
+            $aboutCnt.stop().animate({left: 'auto', right: Number(aboutsize)-80}).children($aboutBtn).removeClass('active').find('sr-only').text('자기소개');
 
         } else { //열기
             var $first = $about.find('[data-link="first"]');
@@ -55,6 +55,16 @@ $(document).ready(function() {
             });
         }
     });
+
+    $aboutCnt.on({
+        mouseenter: function () {
+            $(this).find(':before').addClass('on');
+        },
+        mouseleave: function () {
+            $(this).find(':before').removeClass('on');
+        }
+    });
+
 
     //portfolio
     var $win = $(window);
